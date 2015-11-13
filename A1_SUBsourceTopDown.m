@@ -18,4 +18,7 @@ nSources = size(find(catalog.sub.analysis.sourceBool));
 catalog.sub.analysis.nSources = nSources(1);
 catalog.sub.analysis.sourceCounts = catalog.sub.image.data.*catalog.sub.analysis.sourceBool;
 
+catalog.sub.analysis.thresholdHigh = thresholdHigh;
+catalog.sub.analysis.thresholdLow = thresholdLow;
+
 end

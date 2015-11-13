@@ -27,12 +27,12 @@ catalog = A1_sourceTopDown(catalog);
 % catalog = A1_SUBsourceTopDown(catalog);
 
 fprintf('%s%g%s%g%s\n','Man got ',catalog.analysis.nSources,' source pixels (',catalog.image.dimensions(1)*catalog.image.dimensions(2),' total pixels) u kno!');
-% fprintf('%s%g%s%g%s\n','Man got ',catalog.sub.analysis.nSources,' source pixels (',catalog.sub.image.dimensions(1)*catalog.sub.image.dimensions(2),' total pixels) u kno!');
+fprintf('%s%g%s%g%s\n','Man got ',catalog.sub.analysis.nSources,' source pixels (',catalog.sub.image.dimensions(1)*catalog.sub.image.dimensions(2),' total pixels) u kno!');
 
 % write new image to new FITS file for viewing in DS9
 
-fitswrite(catalog.analysis.sourceCounts,sprintf('%s%g%s%g%s','A1_mosaicSources-',catalog.analysis.thresholdLow,'-',catalog.analysis.thresholdHigh,'counts'));
-% fitswrite(catalog.sub.analysis.sourceCounts,'toy.fits');
+fitswrite(catalog.analysis.sourceCounts,sprintf('%s%g%s%g%s','A1_mosaicSources-',catalog.analysis.thresholdLow
+fitswrite(catalog.sub.analysis.sourceCounts,'toy.fits');
 
 
 % MASKING - essentially copy the image but remove some of the data
