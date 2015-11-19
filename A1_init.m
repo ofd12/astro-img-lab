@@ -1,3 +1,4 @@
+clear;
 %% State filename - to be done manually!
 filename = 'A1_mosaic.fits';
 
@@ -23,7 +24,7 @@ catalog.image.nPixels = catalog.image.dimensions(1).*catalog.image.dimensions(2)
 % generates copy of the image in catalog,
 % but only for pixels with photon counts within a certain range
 % non-source pixels will be set to have zero counts
-catalog = A1_SourceDetect(catalog,3000,36000);
+catalog = A1_SourceDetect(catalog,3475,36000);
 
 %% Write above new image to new FITS file for viewing in DS9
 fitswrite(catalog.analysis.sourcePixels,sprintf('%s%g%s%g%s','A1_mosaicSources_',catalog.analysis.thresholdLow,'_to_',catalog.analysis.thresholdHigh,'_counts.fits'));

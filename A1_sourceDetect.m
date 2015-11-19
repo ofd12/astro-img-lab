@@ -14,7 +14,7 @@ end
 catalog = catalog_in;
 
 % default values for thresholdLow and thresholdHigh (maximum sensible range)
-DEFAULT_thresholdLow = 3500;
+DEFAULT_thresholdLow = 3000;
 DEFAULT_thresholdHigh = 50000;
 
 % error handling for bad / nonexistent threshold values
