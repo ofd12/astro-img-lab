@@ -1,4 +1,4 @@
-function catalog = A1_SourceDetect(catalog_in,thresholdLow,thresholdHigh)
+function catalog = A1_SourceDetect(catalog_in,n)
 %% Copies image from FITS file but only includes pixels with counts in specified range
 % catalog_in:       struct, catalog_in.image.data contains info from fitsread(file)
 % thresholdLow:     lower bound of pixel count range of interest
@@ -13,27 +13,8 @@ end
 
 catalog = catalog_in;
 
-% default values for thresholdLow and thresholdHigh (maximum sensible range)
-DEFAULT_thresholdLow = 3000;
-DEFAULT_thresholdHigh = 50000;
-
-% error handling for bad / nonexistent threshold values
-if ( ~exist('thresholdLow','var') || ~exist('thresholdHigh','var') )
-    thresholdLow = DEFAULT_thresholdLow;
-    thresholdHigh = DEFAULT_thresholdHigh;
-elseif (thresholdLow > thresholdHigh)
-    fprintf('Lower bound (arg2) cannot be greater than higher bound (arg3)!\n');
-    fprintf('   User specified %g and %g respectively.\n',thresholdLow,thresholdHigh);
-    fprintf('   Reset values to default maximum limits %g and %g respectively.\n',DEFAULT_thresholdLow,DEFAULT_thresholdHigh);
-    thresholdLow = DEFAULT_thresholdLow;
-    thresholdHigh = DEFAULT_thresholdHigh;
-elseif ( (thresholdLow < DEFAULT_thresholdLow) || (thresholdHigh > DEFAULT_thresholdHigh) )
-    fprintf('User-input thresholds exceed allowed range of %g to %g counts.\n',DEFAULT_thresholdLow,DEFAULT_thresholdHigh);
-    fprintf('   User specified %g and %g respectively.\n',thresholdLow,thresholdHigh);
-    fprintf('   Reset values to default maximum limits %g and %g respectively.\n',DEFAULT_thresholdLow,DEFAULT_thresholdHigh);
-    thresholdLow = DEFAULT_thresholdLow;
-    thresholdHigh = DEFAULT_thresholdHigh;
-end
+thresholdHigh = 36000;
+thresholdLow = catalog.analysis.backgroundGeneral.muHat+(n.*catalog.analysis.backgroundGeneral.sigmaHat);
 
 % listed: nPixels x 2 matrix
 listed = nan(catalog.image.nPixels,2);
@@ -51,7 +32,7 @@ sorted = sortrows(listed,1);
 % indicesRangeInterest: linear indices of the sorted elements which fall within the range of interest
 %   (indices within 'sorted' matrix - NOT THE SAME as indices in original image)
 %   count range of interest is ( thresholdLow < count < thresholdHigh )
-indicesRangeInterest = find(sorted(:,1)>thresholdLow & sorted(:,1)<thresholdHigh);
+indicesRangeInterest = find(sorted(:,1)>=thresholdLow & sorted(:,1)<=thresholdHigh);
 
 % sortedRangeInterest: sorted matrix, excluding elements not in the range of interest
 sortedRangeInterest = sorted(indicesRangeInterest,:);
@@ -69,7 +50,8 @@ catalog.analysis.nSourcePixels = nSourcePixels(1);
 % store 'imageSource' matrix in 'catalog' struct
 catalog.analysis.sourcePixels = imageSource;
 % store thresholds in 'catalog' for future reference
-catalog.analysis.thresholdHigh = thresholdHigh;
-catalog.analysis.thresholdLow = thresholdLow;
+catalog.analysis.sourceThresholdHigh = thresholdHigh;
+catalog.analysis.sourceThresholdLow = thresholdLow;
+catalog.analysis.sourceThresholdLowNSigma = n;
 
 end
