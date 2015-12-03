@@ -9,5 +9,6 @@ end
 catalog = catalog_in;
 % reassign values
 catalog.image.data(catalog.image.data>ceiling) = ceiling;
+catalog.image.ceiling = ceiling;
 
 end

@@ -14,5 +14,7 @@ catalog.info = fitsinfo(filename);
 catalog.imageOriginal.data = fitsread(filename);
 catalog.imageOriginal.dimensions = size(catalog.imageOriginal.data);
 catalog.imageOriginal.nPixels = catalog.imageOriginal.dimensions(1).*catalog.imageOriginal.dimensions(2);
+% clone image
+catalog.image = catalog.imageOriginal;
 
 end
