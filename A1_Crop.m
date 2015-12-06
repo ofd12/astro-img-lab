@@ -19,5 +19,7 @@ catalog.image.data = catalog.image.data(nPixels:iEnd,nPixels:jEnd);
 catalog.image.dimensions = size(catalog.image.data);
 catalog.image.nPixels = catalog.image.dimensions(1).*catalog.image.dimensions(2);
 catalog.image.cropLevel = nPixels;
+% clone cropped image
+catalog.imageCropped = catalog.image;
 
 end

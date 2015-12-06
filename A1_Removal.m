@@ -10,20 +10,30 @@ end
 catalog = catalog_in;
 removal = struct();
 
-removal.starcoordinates.centre.x = [1458,561,1434];
-removal.starcoordinates.centre.y = [4032,4098,3204];
-removal.starcoordinates.radius = [24,25,227];
-removal.starcoordinates.radiusError = [1,1,15];
+removal.starcoordinates.centre.x = [434,855,778,2006,2141,1333,1309,2009];
+removal.starcoordinates.centre.y = [3969,2646,2154,2181,3174,3902,3080,3630];
+removal.starcoordinates.radius = [33,60,54,33,48,34,312,41];
+removal.starcoordinates.radiusError = [1,2,2,1,1,1,5,1];
 
-removal.starcoordinates.topleft.x = [2063,2107,2227,2103,731,937,871];
-removal.starcoordinates.topleft.y = [1454,2336,3331,3787,3363,2810,2320];
-removal.starcoordinates.bottomright.x = [2117,2157,2294,2166,820,1010,942];
-removal.starcoordinates.bottomright.y = [1401,2285,3262,3727,3277,2739,2250];
+removal.starcoordinates.topleft.x = [589,1929];
+removal.starcoordinates.topleft.y = [3244,1328];
+removal.starcoordinates.bottomright.x = [706,1983];
+removal.starcoordinates.bottomright.y = [3126,1277];
 
-removal.bloomingboxes.topleft.x = [2132,772,970,903,1426];
-removal.bloomingboxes.topleft.y = [3802,3418,2835,2356,4609];
-removal.bloomingboxes.bottomright.x = [2137,780,979,909,1451];
-removal.bloomingboxes.bottomright.y = [3707,3202,2703,2223,10];
+removal.bloomingboxes.topleft.x = [2002,642,840,773,1296,1230];
+removal.bloomingboxes.topleft.y = [3672,3288,2705,2226,4352,22];
+removal.bloomingboxes.bottomright.x = [2007,650,849,779,1321,1367];
+removal.bloomingboxes.bottomright.y = [3577,3072,2573,2093,1,1];
+
+removal.savestar.centre.x = 831;
+removal.savestar.centre.y = 2693;
+removal.savestar.radius = 8;
+removal.savestar.radiusError = 1;
+
+removal.bloomingtri.topleft.x = [1193,969,1224,1181,887,1261,1230,1278];
+removal.bloomingtri.topleft.y = [340,304,240,203,192,137,17,34];
+removal.bloomingtri.bottomright.x = [1439,1525,1394,1575,1181,1349,4,1298];
+removal.bloomingtri.bottomright.y = [296,295,185,183,185,88,1,16];
 
 %% Circular aperture removal:
 for i = 1:length(removal.starcoordinates.radius)
@@ -43,6 +53,12 @@ end
 for i = 1:length(removal.bloomingboxes.topleft.x)
     PixelTopLeft = [removal.bloomingboxes.topleft.x(i),removal.bloomingboxes.topleft.y(i)];
     PixelBottomRight = [removal.bloomingboxes.bottomright.x(i),removal.bloomingboxes.bottomright.y(i)];
+    catalog = A1_StarRemovalRectangular(catalog,PixelTopLeft,PixelBottomRight);
+end
+
+for i = 1:length(removal.bloomingtri.topleft.x)
+    PixelTopLeft = [removal.bloomingtri.topleft.x(i),removal.bloomingtri.topleft.y(i)];
+    PixelBottomRight = [removal.bloomingtri.bottomright.x(i),removal.bloomingtri.bottomright.y(i)];
     catalog = A1_StarRemovalRectangular(catalog,PixelTopLeft,PixelBottomRight);
 end
 
