@@ -1,4 +1,4 @@
-function catalog = A1_init(filename)
+function catalog = A1_Init(filename)
 %% Initialise from 'filename'.fits
 
 %% Store data from the FITS file

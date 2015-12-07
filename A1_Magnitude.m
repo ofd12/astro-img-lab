@@ -23,9 +23,9 @@ catalog.sources.magnitudeErr = ( (ZP_inst_err.^2) + ((-2.5./(catalog.sources.pho
 catalog.results.magnitudeLimit = linspace(min(catalog.sources.magnitude(:)),max(catalog.sources.magnitude(:)),72);
 for i = 1:length(catalog.results.magnitudeLimit)
     % Find sources satisfying condition
-	boolCentral = (catalog.sources.magnitude <= catalog.results.magnitudeLimit(i));
-    boolUpperBound = ((catalog.sources.magnitude-catalog.sources.magnitudeErr)<=catalog.results.magnitudeLimit(i));
-    boolLowerBound = ((catalog.sources.magnitude+catalog.sources.magnitudeErr)<=catalog.results.magnitudeLimit(i));
+	boolCentral = (catalog.sources.magnitude < catalog.results.magnitudeLimit(i));
+    boolUpperBound = ((catalog.sources.magnitude-catalog.sources.magnitudeErr)<catalog.results.magnitudeLimit(i));
+    boolLowerBound = ((catalog.sources.magnitude+catalog.sources.magnitudeErr)<catalog.results.magnitudeLimit(i));
     % Count sources satisfying condition
 	catalog.results.nSourcesFluxLimit(i) = sum(boolCentral(:));
     catalog.results.nSourcesFluxLimitLowerBound(i) = sum(boolLowerBound(:));
